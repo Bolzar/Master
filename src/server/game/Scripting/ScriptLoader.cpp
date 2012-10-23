@@ -91,7 +91,8 @@ void AddSC_npc_taxi();
 void AddSC_achievement_scripts();
 
 //eastern kingdoms
-void AddSC_boss_occuthar();
+void AddSC_instance_baradin_hold();
+void AddSC_boss_occuthar();                  //Baradin Hold
 void AddSC_boss_argaloth();
 void AddSC_alterac_valley();                 //Alterac Valley
 void AddSC_boss_balinda();
