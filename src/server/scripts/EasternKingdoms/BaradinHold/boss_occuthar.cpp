@@ -81,13 +81,16 @@ class boss_occuthar : public CreatureScript
                     {
 					case Event_Eyes_of_Occuthar:
 						DoCast(spell_Eyes_of_Occuthar);
+						events.ScheduleEvent(Event_Eyes_of_Occuthar, 60000);
 						break;
 					case Event_Focused_Fire:
 						if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM))
 							DoCast(target, spell_Focused_Fire);
+						events.ScheduleEvent(Event_Focused_Fire, 20000);
 						break;
 					case Event_Searing_Shadows:
 						DoCast(spell_Searing_Shadows);
+						events.ScheduleEvent(Event_Searing_Shadows, 15000);
 						break;
 						}
 					}
