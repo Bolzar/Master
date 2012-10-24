@@ -28,6 +28,7 @@ enum Spells
 	spell_Eyes_of_Occuthar = 96920,
 	spell_Focused_Fire     = 96884,
 	spell_Searing_Shadows  = 96913,
+	spell_berserk          = 47008,
 };
 
 enum Events
@@ -45,13 +46,13 @@ class boss_occuthar : public CreatureScript
 
         struct boss_occutharAI : public BossAI
         {
-            boss_occutharAI(Creature* creature) : BossAI(creature, Data_Occuthar)
+            boss_occutharAI(Creature* creature) : BossAI(creature, DATA_OCCUTHAR)
             {
 			}
 
 			void reset()
 			{
-				me->RemoveAurasDueToSpell(SPELL_BERSERK2);
+				me->RemoveAurasDueToSpell(spell_berserk);
 				events.ScheduleEvent(Event_Eyes_of_Occuthar, 60000);
 				events.ScheduleEvent(Event_Focused_Fire, 20000);
 				events.ScheduleEvent(Event_Searing_Shadows, 15000);
@@ -93,11 +94,10 @@ class boss_occuthar : public CreatureScript
 				DoMeleeAttackIfReady();
 			}
 	};
-
-CreatureAI* GetAI(Creature* creature) const
-        {
-            return GetBaradinHoldAI<boss_occutharAI>(creature);
-        }
+    CreatureAI* GetAI(Creature* creature) const
+    {
+        return new boss_occutharAI(creature);
+    }
 };
 
 void AddSC_boss_occuthar()

@@ -17,6 +17,10 @@
 
 #include"ScriptPCH.h"
 #include"baradin_hold.h"
+#include "ScriptedGossip.h"
+#include "ScriptMgr.h"
+#include "InstanceScript.h"
+#include "Spell.h"
 
 class instance_baradin_hold: public InstanceMapScript
 {
