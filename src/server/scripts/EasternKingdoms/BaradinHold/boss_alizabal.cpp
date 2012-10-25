@@ -97,13 +97,17 @@ class boss_alizabal : public CreatureScript
 							break;
 					case Event_Blade_Dance_Begin:
 						if (Aura* pBlade = me->GetAura(spell_Blade_Dance))
-							pBlade->SetDuration(int32(20000));
+							pBlade->SetDuration(60000);
+							me->GetAura(spell_Blade_Dance); // debug
 							me->SetSpeed(MOVE_RUN, 10*3.0f, true);
-							events.ScheduleEvent(Event_Blade_Dance_Move, 20000+1);
+							events.CancelEvent(Event_Skewer);
+							events.CancelEvent(Event_Seething_Hate);
+							events.ScheduleEvent(Event_Blade_Dance_Move, 20000);
+							events.ScheduleEvent(Event_Blade_Dance_End, 60000+1);
 							break;
 					case Event_Blade_Dance_Move:
 						{
-						events.ScheduleEvent(Event_Blade_Dance_Move, 20000/3);
+						events.ScheduleEvent(Event_Blade_Dance_Move, 60000/3);
 						Unit* unit = SelectTarget(SELECT_TARGET_RANDOM, 0, NonTankTargetSelector(me));
 					       if (!unit)
                                 unit = SelectTarget(SELECT_TARGET_RANDOM, 0, 0.0f, true);

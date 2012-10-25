@@ -29,6 +29,7 @@ enum Spells
 	spell_Focused_Fire     = 96884,
 	spell_Searing_Shadows  = 96913,
 	spell_berserk          = 47008,
+	spell_Gaze_of_Occuthar = 97028,
 };
 
 enum Events
@@ -37,6 +38,8 @@ enum Events
 	Event_Focused_Fire     = 2,
 	Event_Searing_Shadows  = 3,
 	Event_Berserk          = 4,
+	Event_Gaze_of_Occuthar = 5,
+	Event_AOE              = 6,
 };
 
 class boss_occuthar : public CreatureScript
@@ -65,6 +68,18 @@ class boss_occuthar : public CreatureScript
 				events.ScheduleEvent(Event_Searing_Shadows, 15000);
 			}
 
+			void SummEyes()
+			{
+				if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM))
+				me->SummonCreature(CREATURE_Eye_of_Occuthar, target->GetPositionX(), target->GetPositionY(), target->GetPositionZ());
+			}
+
+			void SummDummy()
+			{
+				if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM))
+				me->SummonCreature(CREATURE_Focused_Fire_Dummy, target->GetPositionX(), target->GetPositionY(), target->GetPositionZ());
+			}
+
 			void UpdateAI(uint32 const diff)
             {
 				if (!UpdateVictim() || !CheckInRoom())
@@ -81,11 +96,11 @@ class boss_occuthar : public CreatureScript
                     {
 					case Event_Eyes_of_Occuthar:
 						DoCast(spell_Eyes_of_Occuthar);
+						SummEyes();
 						events.ScheduleEvent(Event_Eyes_of_Occuthar, 60000);
 						break;
 					case Event_Focused_Fire:
-						if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM))
-							DoCast(target, spell_Focused_Fire);
+						SummDummy();
 						events.ScheduleEvent(Event_Focused_Fire, 20000);
 						break;
 					case Event_Searing_Shadows:
@@ -103,7 +118,110 @@ class boss_occuthar : public CreatureScript
     }
 };
 
+class Eye_of_Occuthar : public CreatureScript
+{
+    public:
+        Eye_of_Occuthar() : CreatureScript("Eye_of_Occuthar") { }
+
+        struct Eye_of_OccutharAI : public BossAI
+        {
+            Eye_of_OccutharAI(Creature* creature) : BossAI(creature, DATA_Eye_of_Occuthar)
+			{
+			}
+
+			void reset()
+			{
+				events.ScheduleEvent(Event_Gaze_of_Occuthar, 8000);
+			}
+
+			void EnterCombat(Unit* /*who*/)
+            {
+				events.ScheduleEvent(Event_Gaze_of_Occuthar, 8000);
+			}
+
+			void UpdateAI(uint32 const diff)
+            {
+				if (!UpdateVictim() || !CheckInRoom())
+                    return;
+
+                events.Update(diff);
+
+                if (me->HasUnitState(UNIT_STATE_CASTING))
+                    return;
+
+                while (uint32 eventId = events.ExecuteEvent())
+                {
+                    switch (eventId)
+                    {
+					case Event_Gaze_of_Occuthar:
+						if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM))
+							DoCast(target, spell_Gaze_of_Occuthar);
+						events.ScheduleEvent(Event_Gaze_of_Occuthar, 20000);
+						break;
+						}
+					}
+				}
+
+			protected:
+            EventMap Events;
+        };
+
+        CreatureAI* GetAI(Creature* creature) const
+        {
+            return new Eye_of_OccutharAI(creature);
+        }
+};
+
+class Focused_Fire_Dummy : public CreatureScript
+{
+    public:
+        Focused_Fire_Dummy() : CreatureScript("Focused_Fire_Dummy") { }
+
+        struct Focused_Fire_DummyAI : public BossAI
+        {
+            Focused_Fire_DummyAI(Creature* creature) : BossAI(creature, DATA_Focused_Fire_Dummy)
+			{
+			}
+
+			void EnterCombat(Unit* who)
+            {
+				events.ScheduleEvent(Event_AOE, 1000);
+			}
+
+			void UpdateAI(uint32 const diff)
+            {
+				if (!UpdateVictim() || !CheckInRoom())
+                    return;
+
+                events.Update(diff);
+
+                if (me->HasUnitState(UNIT_STATE_CASTING))
+                    return;
+
+                while (uint32 eventId = events.ExecuteEvent())
+                {
+                    switch (eventId)
+                    {
+					case Event_AOE:
+						DoCast(spell_Focused_Fire);
+						break;
+						}
+					}
+				}
+
+			protected:
+            EventMap Events;
+        };
+
+        CreatureAI* GetAI(Creature* creature) const
+        {
+            return new Focused_Fire_DummyAI(creature);
+        }
+};
+
 void AddSC_boss_occuthar()
 {
     new boss_occuthar();
+	new Eye_of_Occuthar();
+	new Focused_Fire_Dummy();
 }

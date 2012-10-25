@@ -23,6 +23,9 @@ enum Creatures
     CREATURE_ARGALOTH  = 47120,
     CREATURE_OCCUTHAR  = 52363,
 	CREATURE_ALIZABAL  = 55869,
+	// Adds
+	CREATURE_Eye_of_Occuthar    = 52389,
+	CREATURE_Focused_Fire_Dummy = 62455,
 };
 
 enum Data
@@ -30,6 +33,8 @@ enum Data
     DATA_ARGALOTH,
     DATA_OCCUTHAR,
 	DATA_ALIZABAL,
+	DATA_Eye_of_Occuthar,
+	DATA_Focused_Fire_Dummy,
     MAX_ENCOUNTER
 };
 
