@@ -1,27 +1,24 @@
--- MySQL dump 10.13  Distrib 5.5.21, for Win64 (x86)
---
--- Host: localhost    Database: auth_4x
--- ------------------------------------------------------
--- Server version	5.5.21
+/*
+Navicat MySQL Data Transfer
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+Source Server         : Holystone Productions
+Source Server Version : 50509
+Source Host           : localhost:3306
+Source Database       : auth
 
---
--- Table structure for table `account`
---
+Target Server Type    : MYSQL
+Target Server Version : 50509
+File Encoding         : 65001
 
+Date: 2012-10-26 14:06:01
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `account`
+-- ----------------------------
 DROP TABLE IF EXISTS `account`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `account` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Identifier',
   `username` varchar(32) NOT NULL DEFAULT '',
@@ -43,49 +40,33 @@ CREATE TABLE `account` (
   `recruiter` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Account System';
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Account System';
 
---
--- Dumping data for table `account`
---
+-- ----------------------------
+-- Records of account
+-- ----------------------------
+INSERT INTO `account` VALUES ('1', 'ADMIN', '8301316D0D8448A34FA6D0C6BF1CBFA2B4A1A93A', 'EDA88CE9F4C4FBD05D4904DBF845C4548E77DC156283ABE90CA600A160EEB2F3C4FC5DA8328A61A4', '6EC8908ABE1FF20DE1C1CDA6227E40817684E9766AE10B3634F7BD5840B85586', '8FE5FF0C237056972986201B6AA5C20F4C947F64E4EBA99099F8468EB7B19B63', '', '2012-10-10 16:58:42', '127.0.0.1', '0', '0', '2012-10-25 16:44:14', '1', '3', '0', '0', 'Win', '0');
 
-LOCK TABLES `account` WRITE;
-/*!40000 ALTER TABLE `account` DISABLE KEYS */;
-/*!40000 ALTER TABLE `account` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `account_access`
---
-
+-- ----------------------------
+-- Table structure for `account_access`
+-- ----------------------------
 DROP TABLE IF EXISTS `account_access`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `account_access` (
   `id` int(10) unsigned NOT NULL,
   `gmlevel` tinyint(3) unsigned NOT NULL,
   `RealmID` int(11) NOT NULL DEFAULT '-1',
   PRIMARY KEY (`id`,`RealmID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `account_access`
---
+-- ----------------------------
+-- Records of account_access
+-- ----------------------------
+INSERT INTO `account_access` VALUES ('1', '3', '-1');
 
-LOCK TABLES `account_access` WRITE;
-/*!40000 ALTER TABLE `account_access` DISABLE KEYS */;
-/*!40000 ALTER TABLE `account_access` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `account_banned`
---
-
+-- ----------------------------
+-- Table structure for `account_banned`
+-- ----------------------------
 DROP TABLE IF EXISTS `account_banned`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `account_banned` (
   `id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Account id',
   `bandate` int(10) unsigned NOT NULL DEFAULT '0',
@@ -95,24 +76,15 @@ CREATE TABLE `account_banned` (
   `active` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`,`bandate`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Ban List';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `account_banned`
---
+-- ----------------------------
+-- Records of account_banned
+-- ----------------------------
 
-LOCK TABLES `account_banned` WRITE;
-/*!40000 ALTER TABLE `account_banned` DISABLE KEYS */;
-/*!40000 ALTER TABLE `account_banned` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ip_banned`
---
-
+-- ----------------------------
+-- Table structure for `ip_banned`
+-- ----------------------------
 DROP TABLE IF EXISTS `ip_banned`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ip_banned` (
   `ip` varchar(15) NOT NULL DEFAULT '127.0.0.1',
   `bandate` int(10) unsigned NOT NULL,
@@ -121,24 +93,15 @@ CREATE TABLE `ip_banned` (
   `banreason` varchar(255) NOT NULL DEFAULT 'no reason',
   PRIMARY KEY (`ip`,`bandate`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Banned IPs';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `ip_banned`
---
+-- ----------------------------
+-- Records of ip_banned
+-- ----------------------------
 
-LOCK TABLES `ip_banned` WRITE;
-/*!40000 ALTER TABLE `ip_banned` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ip_banned` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `logs`
---
-
+-- ----------------------------
+-- Table structure for `logs`
+-- ----------------------------
 DROP TABLE IF EXISTS `logs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `logs` (
   `time` int(10) unsigned NOT NULL,
   `realm` int(10) unsigned NOT NULL,
@@ -146,24 +109,15 @@ CREATE TABLE `logs` (
   `level` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `string` text CHARACTER SET latin1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `logs`
---
+-- ----------------------------
+-- Records of logs
+-- ----------------------------
 
-LOCK TABLES `logs` WRITE;
-/*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `logs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `realmcharacters`
---
-
+-- ----------------------------
+-- Table structure for `realmcharacters`
+-- ----------------------------
 DROP TABLE IF EXISTS `realmcharacters`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `realmcharacters` (
   `realmid` int(10) unsigned NOT NULL DEFAULT '0',
   `acctid` int(10) unsigned NOT NULL,
@@ -171,24 +125,16 @@ CREATE TABLE `realmcharacters` (
   PRIMARY KEY (`realmid`,`acctid`),
   KEY `acctid` (`acctid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Realm Character Tracker';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `realmcharacters`
---
+-- ----------------------------
+-- Records of realmcharacters
+-- ----------------------------
+INSERT INTO `realmcharacters` VALUES ('1', '1', '3');
 
-LOCK TABLES `realmcharacters` WRITE;
-/*!40000 ALTER TABLE `realmcharacters` DISABLE KEYS */;
-/*!40000 ALTER TABLE `realmcharacters` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `realmlist`
---
-
+-- ----------------------------
+-- Table structure for `realmlist`
+-- ----------------------------
 DROP TABLE IF EXISTS `realmlist`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `realmlist` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL DEFAULT '',
@@ -203,25 +149,16 @@ CREATE TABLE `realmlist` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Realm System';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `realmlist`
---
+-- ----------------------------
+-- Records of realmlist
+-- ----------------------------
+INSERT INTO `realmlist` VALUES ('1', 'Holystone Productions', '127.0.0.1', '8085', '0', '0', '1', '0', '0', '15595');
 
-LOCK TABLES `realmlist` WRITE;
-/*!40000 ALTER TABLE `realmlist` DISABLE KEYS */;
-INSERT INTO `realmlist` VALUES (1,'Trinity','127.0.0.1',8085,1,0,1,0,0,15595);
-/*!40000 ALTER TABLE `realmlist` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `uptime`
---
-
+-- ----------------------------
+-- Table structure for `uptime`
+-- ----------------------------
 DROP TABLE IF EXISTS `uptime`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `uptime` (
   `realmid` int(10) unsigned NOT NULL,
   `starttime` int(10) unsigned NOT NULL DEFAULT '0',
@@ -230,24 +167,51 @@ CREATE TABLE `uptime` (
   `revision` varchar(255) NOT NULL DEFAULT 'Trinitycore',
   PRIMARY KEY (`realmid`,`starttime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Uptime system';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `uptime`
---
-
-LOCK TABLES `uptime` WRITE;
-/*!40000 ALTER TABLE `uptime` DISABLE KEYS */;
-/*!40000 ALTER TABLE `uptime` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2012-08-08 19:01:34
+-- ----------------------------
+-- Records of uptime
+-- ----------------------------
+INSERT INTO `uptime` VALUES ('1', '1349884160', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1349884702', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1349904057', '611', '1', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1349963180', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1349963275', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350817099', '612', '1', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350818306', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350818692', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350830877', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350831048', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350831399', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350832344', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350833260', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350833414', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350844002', '608', '1', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350845152', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350845785', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350848123', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350848378', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350922428', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350922821', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1350923633', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351003596', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351020865', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351022589', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351023848', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351024197', '602', '1', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351025310', '609', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351028117', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351094476', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351095750', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351115337', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351116175', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351171121', '4208', '1', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351175559', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351176111', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351176650', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351177323', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351178041', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351178345', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351178702', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351179283', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351179640', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
+INSERT INTO `uptime` VALUES ('1', '1351179840', '0', '0', 'TrinityCore rev. 0000-00-00 00:00:00 +0000 (Archived) (Win64, Debug)');
